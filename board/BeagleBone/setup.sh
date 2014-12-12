@@ -1,6 +1,6 @@
 KERNCONF=BEAGLEBONE
-BEAGLEBONE_UBOOT=
-BEAGLEBONE_UBOOT_SRC=${TOPDIR}/u-boot-2014.04
+BEAGLEBONE_UBOOT=/usr/local/share/u-boot/u-boot-beaglebone
+BEAGLEBONE_UBOOT_SRC=
 IMAGE_SIZE=$((1000 * 1000 * 1000))
 TARGET_ARCH=armv6
 
@@ -48,7 +48,11 @@ beaglebone_uboot_install ( ) {
         echo "Installing U-Boot from : ${BEAGLEBONE_UBOOT}"
 	cp ${BEAGLEBONE_UBOOT}/MLO .
 	cp ${BEAGLEBONE_UBOOT}/bb-uboot.img .
-	cp ${BEAGLEBONE_UBOOT}/bb-uenv.txt .
+	if [ -f ${BEAGLEBONE_UBOOT}/bb-uenv.txt ]; then
+	    cp ${BEAGLEBONE_UBOOT}/bb-uenv.txt .
+	else
+	    touch bb-uenv.txt
+	fi
     else
         echo "Installing U-Boot onto the FAT partition"
         # Note that all of the BeagleBone boot files
