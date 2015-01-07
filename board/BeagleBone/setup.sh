@@ -47,11 +47,11 @@ beaglebone_uboot_install ( ) {
     if [ -n "${BEAGLEBONE_UBOOT}" ]; then
         echo "Installing U-Boot from : ${BEAGLEBONE_UBOOT}"
 	cp ${BEAGLEBONE_UBOOT}/MLO .
-	cp ${BEAGLEBONE_UBOOT}/bb-uboot.img .
-	if [ -f ${BEAGLEBONE_UBOOT}/bb-uenv.txt ]; then
-	    cp ${BEAGLEBONE_UBOOT}/bb-uenv.txt .
+	cp ${BEAGLEBONE_UBOOT}/u-boot.img .
+	if [ -f ${BEAGLEBONE_UBOOT}/u-boot.env ]; then
+	    cp ${BEAGLEBONE_UBOOT}/u-boot.env .
 	else
-	    touch bb-uenv.txt
+	    touch u-boot.env
 	fi
     else
         echo "Installing U-Boot onto the FAT partition"
@@ -73,7 +73,7 @@ strategy_add $PHASE_BOOT_INSTALL beaglebone_uboot_install
 # have to compile it separately for every different load address.
 #
 strategy_add $PHASE_BUILD_OTHER freebsd_ubldr_build UBLDR_LOADADDR=0x88000000
-strategy_add $PHASE_BOOT_INSTALL freebsd_ubldr_copy_ubldr bbubldr
+strategy_add $PHASE_BOOT_INSTALL freebsd_ubldr_copy_ubldr ubldr
 
 # BeagleBone puts the kernel on the FreeBSD UFS partition.
 strategy_add $PHASE_FREEBSD_BOARD_INSTALL board_default_installkernel .
