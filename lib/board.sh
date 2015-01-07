@@ -143,8 +143,8 @@ board_default_goodbye ( ) {
     echo "Completed disk image is in: ${IMG}"
     echo
     echo "Copy to a suitable memory card using a command such as:"
-    echo "dd if=${IMG} of=/dev/da0 bs=1m"
-    echo "(Replace /dev/da0 with the appropriate path for your card reader.)"
+    echo "dd if=${IMG} of=/dev/[da0] bs=1m"
+    echo "(Replace /dev/[da0] with the appropriate path for your card reader.)"
     echo
 }
 strategy_add $PHASE_GOODBYE_LWW board_default_goodbye
